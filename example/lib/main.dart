@@ -13,13 +13,13 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   late WeightSliderController _controller;
-  double _weight = 30.0;
+  double _weight = 160.0;
 
   @override
   void initState() {
     super.initState();
     _controller = WeightSliderController(
-        initialWeight: _weight, minWeight: 0, interval: 0.1);
+        initialWeight: _weight, minWeight: 130, interval: 1);
   }
 
   @override
@@ -46,6 +46,8 @@ class _MyAppState extends State<MyApp> {
             ),
           ),
           VerticalWeightSlider(
+            height: 509,
+            isVertical: true,
             controller: _controller,
             decoration: const PointerDecoration(
               width: 130,
