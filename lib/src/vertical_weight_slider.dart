@@ -8,6 +8,7 @@ class VerticalWeightSlider extends StatelessWidget {
     Key? key,
     required this.controller,
     this.height = 250,
+    this.width = 200,
     this.decoration = const PointerDecoration(),
     this.indicator,
     required this.onChanged,
@@ -24,6 +25,8 @@ class VerticalWeightSlider extends StatelessWidget {
 
   /// If non-null, requires the child to have exactly this height.
   final double height;
+
+  final double width;
 
   /// Pointer configuration
   final PointerDecoration decoration;
@@ -56,6 +59,7 @@ class VerticalWeightSlider extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: height,
+      width: width,
       child: RotatedBox(
         quarterTurns: isVertical ? 0 : 1,
         child: Stack(
