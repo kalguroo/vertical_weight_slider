@@ -5,7 +5,7 @@ class WeightSliderController extends FixedExtentScrollController {
     double initialWeight = 0.0,
     int maxWeight = 300,
     int minWeight = 0,
-    double itemExtent = 15.0,
+    double itemExtent = 17.0,
     double interval = 1.0,
   })  : this.initialWeight = initialWeight,
         this.maxWeight = maxWeight,

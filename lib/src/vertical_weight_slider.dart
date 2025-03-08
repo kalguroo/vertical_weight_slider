@@ -15,6 +15,8 @@ class VerticalWeightSlider extends StatelessWidget {
     this.haptic = Haptic.none,
     this.diameterRatio = 3.0,
     this.unit = MeasurementUnit.kg,
+    this.isMediumPointer = false,
+    this.reversed = false,
   }) : super(key: key);
 
   /// A controller for scroll views whose items have the same size.
@@ -43,7 +45,11 @@ class VerticalWeightSlider extends StatelessWidget {
 
   final MeasurementUnit unit;
 
-  double selectedWeight(int index) =>
+  final bool isMediumPointer;
+
+  final bool reversed;
+
+  double selectedWeight(int index) => reversed ? controller.maxWeight - (index * controller.interval) :
       controller.minWeight + (index * controller.interval);
 
   @override
@@ -51,38 +57,63 @@ class VerticalWeightSlider extends StatelessWidget {
     return SizedBox(
       height: height,
       child: RotatedBox(
-        quarterTurns: isVertical ? 0 : 3,
+        quarterTurns: isVertical ? 0 : 1,
         child: Stack(
-          alignment: Alignment.center,
+          alignment: Alignment.centerRight,
           children: [
             ListWheelScrollView.useDelegate(
-              itemExtent: controller.itemExtent,
+              // itemExtent: isVertical ? controller.itemExtent : controller.itemExtent + 9,
+              itemExtent: controller.itemExtent ,
               diameterRatio: diameterRatio,
               controller: controller,
               physics: const FixedExtentScrollPhysics(),
-              perspective: 0.01,
+              perspective: 0.00000000000000001,
+              // perspective: 0.01,
               childDelegate: ListWheelChildBuilderDelegate(
                 childCount: controller.markCount,
                 builder: (context, index) {
-                  if (index % unit.largePointerIndex == 0) {
-                    return WeightPointer(
-                      color: decoration.largeColor,
-                      width: decoration.width,
-                      height: decoration.height,
-                    );
-                  }
-                  if (index % unit.mediumPointerIndex == 0) {
-                    return WeightPointer(
-                      color: decoration.mediumColor,
-                      width: decoration.width - decoration.gap,
-                      height: decoration.height - 1,
-                    );
-                  }
-                  return WeightPointer(
-                    color: decoration.smallColor,
-                    width: decoration.width - (decoration.gap * 2),
-                    height: decoration.height - 1,
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      if (index % unit.largePointerIndex == 0) 
+                        // RotatedBox(
+                          // quarterTurns: isVertical ? 0 : 3,
+                          // child:
+                           Text(
+                            selectedWeight(index).toStringAsFixed(0),
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: decoration.largeColor,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        // ),
+                        
+                        
+                      if (index % unit.largePointerIndex == 0) 
+                        WeightPointer(
+                          color: decoration.largeColor,
+                          width: decoration.width,
+                          height: decoration.height,
+                        ) 
+                      else if (index % unit.mediumPointerIndex == 0 && isMediumPointer) 
+                        WeightPointer(
+                          color: decoration.mediumColor,
+                          width: decoration.width - decoration.gap,
+                          height: decoration.height - 1,
+                        )
+                      else 
+                        WeightPointer(
+                          color: decoration.smallColor,
+                          width: decoration.width - (decoration.gap * 2),
+                          height: decoration.height - 1,
+                        ),
+                      
+                    ]
                   );
+                  
                 },
               ),
               onSelectedItemChanged: (index) {
@@ -90,7 +121,10 @@ class VerticalWeightSlider extends StatelessWidget {
                 haptic.run();
               },
             ),
-            indicator ?? const SizedBox(),
+            Container(
+              margin: const EdgeInsets.only(top: 5),
+              child: indicator ?? const SizedBox(),
+            ),
           ],
         ),
       ),

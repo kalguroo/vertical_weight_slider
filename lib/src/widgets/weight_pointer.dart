@@ -6,6 +6,7 @@ class WeightPointer extends StatelessWidget {
     this.width = 130.0,
     this.height = 3.0,
     this.color = Colors.grey,
+    this.textPointer,
   }) : super(key: key);
 
   /// If non-null, requires the child to have exactly this Width.
@@ -17,14 +18,16 @@ class WeightPointer extends StatelessWidget {
   /// The color of the gradation.
   final Color color;
 
+  final Widget? textPointer;
+
   @override
   Widget build(BuildContext context) {
     return Center(
       child: Container(
+        margin: const EdgeInsets.only(top: 5, left: 4),
         height: height,
         width: width,
         decoration: BoxDecoration(
-          borderRadius: const BorderRadius.all(Radius.circular(16)),
           color: color,
         ),
       ),
