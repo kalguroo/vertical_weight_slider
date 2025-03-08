@@ -17,7 +17,6 @@ class VerticalWeightSlider extends StatelessWidget {
     this.diameterRatio = 3.0,
     this.unit = MeasurementUnit.kg,
     this.isMediumPointer = false,
-    this.reversed = false,
   }) : super(key: key);
 
   /// A controller for scroll views whose items have the same size.
@@ -50,9 +49,8 @@ class VerticalWeightSlider extends StatelessWidget {
 
   final bool isMediumPointer;
 
-  final bool reversed;
 
-  double selectedWeight(int index) => reversed ? controller.maxWeight - (index * controller.interval) :
+  double selectedWeight(int index) => controller.reversed ? controller.maxWeight - (index * controller.interval) :
       controller.minWeight + (index * controller.interval);
 
   @override

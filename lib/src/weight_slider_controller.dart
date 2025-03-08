@@ -7,16 +7,18 @@ class WeightSliderController extends FixedExtentScrollController {
     int minWeight = 0,
     double itemExtent = 17.0,
     double interval = 1.0,
+    bool reversed = false,
   })  : this.initialWeight = initialWeight,
         this.maxWeight = maxWeight,
         this.minWeight = minWeight,
         this.itemExtent = itemExtent,
         this.interval = interval,
+        this.reversed = reversed,
         assert(maxWeight >= 0),
         assert(minWeight >= 0),
         assert(itemExtent >= 0),
         super(
-          initialItem: (initialWeight - minWeight) ~/ interval,
+          initialItem: reversed ? (maxWeight - initialWeight) ~/ interval : (initialWeight - minWeight) ~/ interval,
         );
 
   /// The page to show when first creating the scroll view.
@@ -35,6 +37,8 @@ class WeightSliderController extends FixedExtentScrollController {
 
   /// Gap value according to scale type.
   final double interval;
+
+  final bool reversed;
 
   int getIntervalToInt() => interval.toInt();
 
