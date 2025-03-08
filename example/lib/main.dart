@@ -19,7 +19,7 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     _controller = WeightSliderController(
-        initialWeight: _weight, minWeight: 130, interval: 1);
+        initialWeight: _weight, minWeight: 130, interval: 1, reversed: true);
   }
 
   @override
@@ -47,7 +47,6 @@ class _MyAppState extends State<MyApp> {
           ),
           VerticalWeightSlider(
             height: 509,
-            reversed: true,
             isVertical: true,
             controller: _controller,
             decoration: const PointerDecoration(
