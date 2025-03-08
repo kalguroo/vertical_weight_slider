@@ -47,11 +47,13 @@ class WeightSliderController extends FixedExtentScrollController {
   /// Changes which item index is centered in the controlled scroll view.
   @override
   void jumpToItem(int weight) {
-    super.jumpToItem((weight - minWeight) ~/ interval);
+    final item = reversed ? (maxWeight - weight) ~/ interval : (weight - minWeight) ~/ interval;
+    super.jumpToItem(item);
   }
 
   @override
   void jumpTo(double weight) {
-    super.jumpTo(itemExtent * (weight - minWeight) / interval);
+    final item = reversed ? itemExtent * (maxWeight - weight) / interval : itemExtent *  (weight - minWeight) / interval;
+    super.jumpTo(item);
   }
 }

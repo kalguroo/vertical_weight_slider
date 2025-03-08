@@ -45,6 +45,22 @@ class _MyAppState extends State<MyApp> {
               style: TextStyle(fontSize: 40, fontWeight: FontWeight.w500),
             ),
           ),
+          ElevatedButton(
+            style: ButtonStyle(
+    backgroundColor: WidgetStateProperty.resolveWith<Color?>(
+      (Set<WidgetState> states) {
+        if (states.contains(WidgetState.pressed)) {
+          return Theme.of(context).colorScheme.primary.withOpacity(0.5);
+        }
+        return null; // Use the component's default.
+      },
+    ),
+  ),
+  child: const Text("Jump to 130"),
+            onPressed: () {
+              _controller.jumpToItem(130);
+            },
+          ),
           VerticalWeightSlider(
             height: 509,
             isVertical: true,
