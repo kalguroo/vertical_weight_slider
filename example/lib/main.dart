@@ -35,7 +35,7 @@ class _MyAppState extends State<MyApp> {
         title: Text("Vertical Weight Slider Example"),
         centerTitle: true,
       ),
-      body: Column(
+      body: Row(
         children: [
           Container(
             height: 200,
@@ -48,7 +48,7 @@ class _MyAppState extends State<MyApp> {
           VerticalWeightSlider(
             height: 509,
             reversed: true,
-            isVertical: false,
+            isVertical: true,
             controller: _controller,
             decoration: const PointerDecoration(
               width: 130,
